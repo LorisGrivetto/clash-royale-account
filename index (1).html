@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profilo Giocatore Clash Royale</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Stile generale */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #121212;
+            color: #f5f5f5;
+        }
+
+        header {
+            background: #ff6f00;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            font-size: 28px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: #1f1f1f;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .card {
+            background: #232323;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            color: #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #ff6f00;
+            text-transform: uppercase;
+        }
+
+        .card p {
+            font-size: 16px;
+            margin: 5px 0;
+            color: #d7d7d7;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin: 10px 0;
+            padding: 10px;
+            background: #ff6f00;
+            color: #ffffff;
+            border-radius: 6px;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .highlight {
+            color: #ffcc00;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px 0;
+            background: #1f1f1f;
+            color: #ffffff;
+            margin-top: 30px;
+            font-size: 14px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Profilo Giocatore Clash Royale</h1>
+    </header>
+    <div class="container">
+        <div class="card">
+            <h3>Informazioni Generali</h3>
+            <p><strong>Nome:</strong> <span class="highlight">${data.name}</span></p>
+            <p><strong>Livello:</strong> ${data.expLevel}</p>
+            <p><strong>Arena:</strong> ${data.arena.name}</p>
+        </div>
+        <div class="card">
+            <h3>Statistiche</h3>
+            <p><strong>Trofei Attuali:</strong> ${data.trophies}</p>
+            <p><strong>Miglior Trofei:</strong> ${data.bestTrophies}</p>
+            <p><strong>Vittorie:</strong> ${data.wins}</p>
+            <p><strong>Sconfitte:</strong> ${data.losses}</p>
+            <p><strong>Partite Totali:</strong> ${data.battleCount}</p>
+            <p><strong>Tre Corone Ottenute:</strong> ${data.threeCrownWins}</p>
+        </div>
+        <div class="card">
+            <h3>Clan</h3>
+            <p><strong>Nome Clan:</strong> ${data.clan ? `<span class="highlight">${data.clan.name}</span>` : 'Nessun clan'}</p>
+            ${data.clan ? `<p><strong>Tag Clan:</strong> ${data.clan.tag}</p>` : ''}
+            ${data.clan ? `<p><strong>Ruolo:</strong> ${data.clan.role}</p>` : ''}
+        </div>
+        <div class="card">
+            <h3>Carte Preferite</h3>
+            <ul>
+                ${data.cards.slice(0, 3).map(card => `<li><span>${card.name}</span><span>Livello: ${card.level}</span></li>`).join('')}
+            </ul>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Clash Royale Info Dashboard</p>
+    </footer>
+    <script src="data.js"></script>
+    <script>
+        const playerInfoDiv = document.querySelector('.container');
+
+        if (data) {
+            playerInfoDiv.innerHTML = `
+                <div class="card">
+                    <h3>Informazioni Generali</h3>
+                    <p><strong>Nome:</strong> <span class="highlight">${data.name}</span></p>
+                    <p><strong>Livello:</strong> ${data.expLevel}</p>
+                    <p><strong>Arena:</strong> ${data.arena.name}</p>
+                </div>
+                <div class="card">
+                    <h3>Statistiche</h3>
+                    <p><strong>Trofei Attuali:</strong> ${data.trophies}</p>
+                    <p><strong>Miglior Trofei:</strong> ${data.bestTrophies}</p>
+                    <p><strong>Vittorie:</strong> ${data.wins}</p>
+                    <p><strong>Sconfitte:</strong> ${data.losses}</p>
+                    <p><strong>Partite Totali:</strong> ${data.battleCount}</p>
+                    <p><strong>Tre Corone Ottenute:</strong> ${data.threeCrownWins}</p>
+                </div>
+                <div class="card">
+                    <h3>Clan</h3>
+                    <p><strong>Nome Clan:</strong> ${data.clan ? `<span class="highlight">${data.clan.name}</span>` : 'Nessun clan'}</p>
+                    ${data.clan ? `<p><strong>Tag Clan:</strong> ${data.clan.tag}</p>` : ''}
+                    ${data.clan ? `<p><strong>Ruolo:</strong> ${data.clan.role}</p>` : ''}
+                </div>
+                <div class="card">
+                    <h3>Carte Preferite</h3>
+                    <ul>
+                        ${data.cards.slice(0, 3).map(card => `<li><span>${card.name}</span><span>Livello: ${card.level}</span></li>`).join('')}
+                    </ul>
+                </div>
+            `;
+        } else {
+            playerInfoDiv.innerHTML = `<p class="error">Nessun dato disponibile.</p>`;
+        }
+    </script>
+</body>
+</html>
